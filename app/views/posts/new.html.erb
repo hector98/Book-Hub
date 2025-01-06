@@ -1,0 +1,13 @@
+<h2>New Post</h2>
+
+<div class="bg-slate-400 h-auto w-96 text-black">
+  <%= form_with model: @post, local: true do |f| %>
+    <%= f.label "Platicanos un poco sobre tu experiencia sobre el libro y si lo recomendaria" %></br>
+    <%= f.text_area :content %></br>
+    <%= f.label "Si puedes, adjunta un link para conseguir el libro" %>
+    <%= f.text_field :link %>
+    <%= f.label "Puedes adjuntar una imagen del libro" %>
+    <%= f.file_field :image %>
+    <%= f.submit %>
+  <% end %>
+</div>
