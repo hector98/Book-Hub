@@ -13,5 +13,12 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = true
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
+
+   # Incluye helpers de Devise para pruebas de controladores
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  # Incluye helpers de Devise para pruebas de solicitudes (request specs)
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  # Opcional: Incluye helpers de Devise para pruebas de sistema (system specs)
+  config.include Devise::Test::IntegrationHelpers, type: :system
 end
 
