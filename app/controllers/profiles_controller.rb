@@ -15,6 +15,12 @@ class ProfilesController < ApplicationController
     end
   end
 
+  def show
+    @profile = current_user.profile
+
+    @my_posts = current_user.posts
+  end
+
   private
 
   def profile_params

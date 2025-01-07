@@ -1,0 +1,57 @@
+<% posts.each do |post| %>
+    <div class="flex flex-row bg-slate-800 max-h-96 w-auto p-2 m-2 justify-between">
+      <div class="flex flex-col w-5/12 h-full">
+        <p>De: <%= post.user.email %></p>
+
+        <p class="text-2xl align-middle whitespace-normal mt-4 flex flex-col space-y-2 overflow-y-auto max-h-96  w-full p-2 rounded bg-slate-700"><%= post.content %></p>
+
+        <p class="my-8 text-2xl">
+          <%= link_to post.link, target: "_blank" do %>
+            🕮  Link al libro
+          <% end %>
+        </p>
+
+        <div class="flex flex-row justify-between">
+          <div class="flex flex-row">
+            <p class="mr-4">Veces Recomendado: <%= post.reactions.where(reaction_type: "star").count %></p>
+            <% if user_signed_in? %>
+              <% if post.reactions.exists?(user_id: current_user.id) and post.reactions.exists?(reaction_type: "star") %>
+                <%= form_with model: post.reactions.find_by(user_id: current_user.id), url: post_reactions_path(post), local: true do |f| %>
+                  <%= f.hidden_field :reaction_type, value: "unstar" %>
+                  <%= f.submit "✯", class: "mr-4" %>
+                <% end %>
+              <% else %>
+                <%= form_with model: Reaction.new, url: post_reactions_path(post), local: true do |f| %>
+                  <%= f.hidden_field :reaction_type, value: "star" %>
+                  <%= f.submit "☆", class: "mr-4" %>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="flex flex-row justify-between">
+          <% if user_signed_in? %>
+            <% if post.user_id == current_user.id %>
+              <%= link_to "Editar Post", edit_post_path(post) %>
+              <%= link_to "Borrar Post", post, method: :delete, data: { turbo_method: :delete } %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-center w-4/12">
+        <p><%= image_tag post.image, width: 250, height: 350 if post.image.present? %></p>
+      </div>
+
+      <div class="flex flex-col items-center justify-center w-4/12">
+        <p class="text-2xl">Comentarios</p>
+        <%= render 'comments/comments', post: post %>
+
+        <% if user_signed_in? %>
+          <%= render 'comments/form', post: post %>
+        <% end %>
+
+      </div>
+    </div>
+  <% end %>

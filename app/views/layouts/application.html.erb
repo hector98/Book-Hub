@@ -11,14 +11,14 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="bg-slate-900 text-white">
+  <body class="bg-slate-900 text-white max-h-screen">
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
     <header class="bg-slate-800 h-16 w-full flex justify-between items-center top-0 shadow-md absolute">
       <%= render 'layouts/header' %>
     </header>
 
-    <div class="container mt-16 flex gap-4 w-full max-h-screen">
+    <div class="container mt-16 flex gap-4 w-full max-h-full">
       <%= render 'layouts/nav' %>
       <%= yield %>
     </div>

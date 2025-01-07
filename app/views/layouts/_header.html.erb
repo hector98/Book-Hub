@@ -1,4 +1,18 @@
 
 <div class="flex items-center absolute">
-  <h1 class="text-5xl font-bold">BookHub</h1>
+  <h1 class="text-5xl font-bold"><%= link_to "Book Hub", root_path %></h1>
+
+  <div class="flex items-center">
+    <% if user_signed_in? %>
+      <div class="flex items-center">
+        <p class="mr-4">Hola, <%= current_user.email %></p>
+        <%= link_to "Cerrar Sesión", destroy_user_session_path, data: { turbo_method: :delete }%>
+      </div>
+
+    <% else %>
+      <div class="flex items-center">
+        <%= link_to "Iniciar Sesión", new_user_session_path %>
+      </div>
+    <% end %>
+  </div>
 </div>

@@ -11,6 +11,15 @@ class ReactionsController < ApplicationController
     end
   end
 
+  def update
+    @reaction = @post.reactions.find(params[:id])
+    if @reaction.update(reaction_params)
+      redirect_to post_path(@post), notice: "Recomiendas este post."
+    else
+      redirect_to post_path(@post), alert: "Hubo un error al recomendar el post."
+    end
+  end
+
   private
 
   def set_post

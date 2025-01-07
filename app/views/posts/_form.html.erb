@@ -1,0 +1,15 @@
+
+  <%= form_with model: post, local: true do |f| %>
+    <%= f.label "Platicanos un poco sobre tu experiencia al leer el libro y si lo recomendarias" %></br>
+    <%= f.text_area :content, class:"bg-slate-900 border-2 border-slate-200 mb-4 w-full" %></br>
+
+    <%= f.label "Si puedes, adjunta un link para que los demás puedan leer el libro" %></br>
+    <%= f.url_field :link, class: "bg-slate-900 border-2 border-slate-200 mb-4" %></br>
+
+    <%= f.label "Opcional, Puedes adjuntar una imagen del libro" %></br>
+    <%= f.file_field :image, class: "bg-slate-900 border-2 border-slate-200 mb-4" %></br>
+
+    <div class="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded w-full text-center h-12">
+      <%= f.submit %>
+    </div>
+  <% end %>
